@@ -2,7 +2,6 @@ package com.kenzan.controllers;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +24,8 @@ public class EmployeeController {
 	@Autowired 
 	private EmployeeService emplService;
 	
-	
-	@GetMapping("ping")
-	public String ping() {
-		return "working";
-	}
-	
-	
+		
+	// retrieves 1 record by ID
 	@GetMapping(path = "employees/{id}")
 	public Employee show(@PathVariable int id, HttpServletResponse resp) {
 
@@ -44,15 +38,21 @@ public class EmployeeController {
 		return emp;
 	}
 	
-	
+	// retrieves all Active employees
 	@GetMapping(path = "employees")
 	public List<Employee> index(){
 		return emplService.findActiveEmployees();
 	}
 	
+	// retrieves all employees in the database
+	@GetMapping(path = "employees/all")
+	public List<Employee> getAllEmployees(){
+		return emplService.getAllEmployees();
+	}
 	
+	// creates a new employee
 	@PostMapping("employees")
-	public Employee create(HttpServletRequest req, HttpServletResponse res, @RequestBody Employee empl) {
+	public Employee create(HttpServletResponse res, @RequestBody Employee empl) {
 		try {
 			empl = emplService.create(empl);
 			res.setStatus(201);
@@ -64,9 +64,9 @@ public class EmployeeController {
 		return empl;
 	}
 
-
+// updates an existing record
 	@PutMapping("employees/{eid}")
-	public Employee update(HttpServletRequest req, HttpServletResponse res, @PathVariable int eid, @RequestBody Employee empl) {
+	public Employee update(HttpServletResponse res, @PathVariable int eid, @RequestBody Employee empl) {
 		
 		try {
 			empl = emplService.update(eid,empl);
@@ -81,9 +81,9 @@ public class EmployeeController {
 		return empl;
 	}
 
-	
+	//deletes a record (it makes it inactive)
 	@DeleteMapping("employees/{eid}")
-	public void destroy(HttpServletRequest req, HttpServletResponse res, @PathVariable int eid) {
+	public void destroy(HttpServletResponse res, @PathVariable int eid) {
 		
 			
 			try {
@@ -97,7 +97,6 @@ public class EmployeeController {
 				res.setStatus(400);
 			}
 			
-		
 	
 	}
 }

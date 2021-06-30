@@ -27,9 +27,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 		
 		return null;
 	}
+	
+	//find ALL Employees in the Database
+	@Override
+	public List<Employee> getAllEmployees() {
+		return emplRepo.findAll();
+	}
 
 	
-	// find all employees
+	// find all ACTIVE employees
 	@Override
 	public List<Employee> findActiveEmployees() {
 		return emplRepo.findByStatusTrue();
@@ -92,15 +98,18 @@ public class EmployeeServiceImpl implements EmployeeService {
 		
 		
 			Employee e = findById(eid);
-			e.setStatus(false);
-			emplRepo.saveAndFlush(e);
-			if (e.getStatus() == false) {
-				return true;
+			if(e != null) {
+				e.setStatus(false);
+				emplRepo.saveAndFlush(e);
+				if (e.getStatus() == false) {
+					return true;
+				}
 			}
 		
 		
 		return false;
 	}
+
 	
 	
 

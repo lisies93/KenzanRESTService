@@ -13,7 +13,7 @@ public class Employee {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int Id;
+	private int id;
 	
 	@Column(name = "first_name")
 	private String firstName;
@@ -37,11 +37,11 @@ public class Employee {
 	}
 
 	public int getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(int id) {
-		Id = id;
+		this.id = id;
 	}
 
 	public String getFirstName() {
@@ -96,7 +96,7 @@ public class Employee {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + Id;
+		result = prime * result + id;
 		return result;
 	}
 
@@ -109,18 +109,17 @@ public class Employee {
 		if (getClass() != obj.getClass())
 			return false;
 		Employee other = (Employee) obj;
-		if (Id != other.Id)
+		if (id != other.id)
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Employee [Id=" + Id + ", firstName=" + firstName + ", middleInitial=" + middleInitial + ", lastName="
+		return "Employee [Id=" + id + ", firstName=" + firstName + ", middleInitial=" + middleInitial + ", lastName="
 				+ lastName + ", dateOfBirth=" + dateOfBirth + ", dateOfEmployment=" + dateOfEmployment + ", status="
 				+ status + "]";
 	}
-	
 	
 	
 }
